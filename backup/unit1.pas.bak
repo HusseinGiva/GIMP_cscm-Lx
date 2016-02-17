@@ -6,7 +6,7 @@ Interface
 
 Uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  StdCtrls, ExtCtrls, ComCtrls, Unit2;
+  StdCtrls, ExtCtrls, ComCtrls, Unit2, Unit3;
 
 Type
 
@@ -33,13 +33,16 @@ Type
     OpenDialog1: TOpenDialog;
     ProgressBar1: TProgressBar;
     Procedure Button1Click(Sender: TObject);
+    Procedure FormClose(Sender: TObject; Var CloseAction: TCloseAction);
     Procedure FormCreate(Sender: TObject);
     Procedure MenuItem10Click(Sender: TObject);
     Procedure MenuItem11Click(Sender: TObject);
     Procedure MenuItem12Click(Sender: TObject);
     Procedure MenuItem13Click(Sender: TObject);
+    Procedure MenuItem14Click(Sender: TObject);
     Procedure MenuItem2Click(Sender: TObject);
     Procedure MenuItem4Click(Sender: TObject);
+    Procedure MenuItem6Click(Sender: TObject);
     Procedure MenuItem8Click(Sender: TObject);
     Procedure MenuItem9Click(Sender: TObject);
   Private
@@ -59,17 +62,63 @@ Implementation
 
 { TForm1 }
 
-Procedure TForm1.MenuItem4Click(Sender: TObject);
+Procedure TForm1.MenuItem2Click(Sender: TObject);   //File-Open
+Var
+  Ext: String;
+Begin
+  If OpenDialog1.Execute Then
+  Begin
+    FileName := OpenDialog1.Filename; //Caminho completo para o ficheiro selecionado
+    Form1.Image1.Picture.LoadFromFile(FileName);
+    Ext := ExtractFileExt(FileName);
+    Form1.Image1.Picture.SaveToFile('temp/image' + Ext);
+  End;
+End;
+
+Procedure TForm1.MenuItem4Click(Sender: TObject);   //File-Close
 Begin
   Application.Terminate;
 End;
 
-Procedure TForm1.MenuItem8Click(Sender: TObject);
+Procedure TForm1.MenuItem8Click(Sender: TObject);   //Help-About
 Begin
   Form2.ShowModal;
 End;
 
-Procedure TForm1.MenuItem9Click(Sender: TObject);
+Procedure TForm1.MenuItem6Click(Sender: TObject);   //Brighter
+Var
+  position_track: Integer;
+  clr: TColor;
+  r, g, b: Byte;
+Begin
+  Form3.TrackBar1.Position := 0;
+  Form3.ShowModal(); //Mostra o form3
+  position_track := Round((Form3.TrackBar1.Position) / 10);
+  //obter a posição da trackbar
+  For i := 0 To Form1.Image1.Picture.Width Do
+  Begin
+    For j := 0 To Form1.Image1.Picture.Height Do
+    Begin
+      clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
+      If (Red(clr) + (Red(clr) * position_track)) >= 255 Then
+        r := 255
+      Else
+        r := Red(clr) + (Red(clr) * position_track);
+      If (Green(clr) + (Green(clr) * position_track)) >= 255 Then
+        g := 255
+      Else
+        g := Green(clr) + (Green(clr) * position_track);
+      If (Blue(clr) + (Blue(clr) * position_track)) >= 255 Then
+        b := 255
+      Else
+        b := Blue(clr) + (Blue(clr) * position_track);
+      Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, g, b);
+    End;
+    Application.ProcessMessages;
+  End;
+End;
+
+Procedure TForm1.MenuItem9Click(Sender: TObject);   //Red
 Var
   clr: TColor;
   r: Byte;
@@ -86,32 +135,7 @@ Begin
   End;
 End;
 
-Procedure TForm1.MenuItem2Click(Sender: TObject);
-Var
-  Ext: String;
-Begin
-  If OpenDialog1.Execute Then
-  Begin
-    FileName := OpenDialog1.Filename; //Caminho completo para o ficheiro selecionado
-    Form1.Image1.Picture.LoadFromFile(FileName);
-    Ext := ExtractFileExt(FileName);
-    Form1.Image1.Picture.SaveToFile('temp/image' + Ext);
-  End;
-End;
-
-Procedure TForm1.Button1Click(Sender: TObject);
-Begin
-  Form1.Image1.Picture.Clear;
-  Form1.Image1.Picture.LoadFromFile(FileName);
-  ProgressBar1.Position := 0;
-End;
-
-Procedure TForm1.FormCreate(Sender: TObject);
-Begin
-  DeleteDirectory('temp', True);
-End;
-
-Procedure TForm1.MenuItem10Click(Sender: TObject);
+Procedure TForm1.MenuItem10Click(Sender: TObject);  //Green
 Var
   clr: TColor;
   g: Byte;
@@ -128,7 +152,7 @@ Begin
   End;
 End;
 
-Procedure TForm1.MenuItem11Click(Sender: TObject);
+Procedure TForm1.MenuItem11Click(Sender: TObject);  //Blue
 Var
   clr: TColor;
   b: Byte;
@@ -145,7 +169,7 @@ Begin
   End;
 End;
 
-Procedure TForm1.MenuItem12Click(Sender: TObject);
+Procedure TForm1.MenuItem12Click(Sender: TObject);  //Gray Scale
 Var
   clr: TColor;
   y: Byte;
@@ -157,13 +181,13 @@ Begin
       clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
       y := Round((Red(clr)) * 0.2126 + (Green(clr)) * 0.7152 + (Blue(clr)) * 0.0722);
       Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(y, y, y);
-      ProgressBar1.Position := 0.1;
+      ProgressBar1.Position := ProgressBar1.Position + 1;
     End;
     Application.ProcessMessages;
   End;
 End;
 
-Procedure TForm1.MenuItem13Click(Sender: TObject);
+Procedure TForm1.MenuItem13Click(Sender: TObject);  //Negative
 Var
   clr: TColor;
   r, g, b: Byte;
@@ -180,6 +204,63 @@ Begin
     End;
     Application.ProcessMessages;
   End;
+End;
+
+Procedure TForm1.MenuItem14Click(Sender: TObject);  //Box Blur
+Var
+  r, g, b: Byte;
+  m, n, red_a, green_a, blue_a, counter: Integer;
+Begin
+  red_a := 0;
+  green_a := 0;
+  blue_a := 0;
+  counter := 0;
+  For i := 0 To Form1.Image1.Picture.Width Do
+  Begin
+    For j := 0 To Form1.Image1.Picture.Height Do
+    Begin
+      For m := -1 To 1 Do
+      Begin
+        For n := -1 To 1 Do
+        Begin
+          If (i + m >= 0) And (i + m <= Form1.Image1.Picture.Width) And
+            (j + n >= 0) And (j + n <= Form1.Image1.Picture.Height) Then
+          Begin
+            red_a := red_a + Red(Form1.Image1.Picture.Bitmap.Canvas.Pixels[i +
+              m, j + n]);
+            green_a := green_a +
+              Green(Form1.Image1.Picture.Bitmap.Canvas.Pixels[i + m, j + n]);
+            blue_a := blue_a +
+              Blue(Form1.Image1.Picture.Bitmap.Canvas.Pixels[i + m, j + n]);
+            counter := counter + 1;
+          End;
+        End;
+      End;
+      r := Round(red_a / counter);
+      g := Round(green_a / counter);
+      b := Round(blue_a / counter);
+      Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, g, b);
+      counter := 0;
+    End;
+    Application.ProcessMessages;
+  End;
+End;
+
+Procedure TForm1.Button1Click(Sender: TObject);     //Reset Button
+Begin
+  Form1.Image1.Picture.Clear;
+  Form1.Image1.Picture.LoadFromFile(FileName);
+  ProgressBar1.Position := 0;
+End;
+
+Procedure TForm1.FormClose(Sender: TObject; Var CloseAction: TCloseAction);
+Begin
+  DeleteDirectory('temp', True);
+End;
+
+Procedure TForm1.FormCreate(Sender: TObject);
+Begin
+  DeleteDirectory('temp', True);
 End;
 
 End.

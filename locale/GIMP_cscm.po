@@ -79,3 +79,11 @@ msgstr ""
 msgid "By: Hussein Giva and Pedro Ribeiro"
 msgstr ""
 
+#: tform3.button1.caption
+msgid "OK"
+msgstr ""
+
+#: tform3.caption
+msgid "Form3"
+msgstr ""
+
