@@ -1,0 +1,81 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: tform1.button1.caption
+msgid "Reset"
+msgstr ""
+
+#: tform1.caption
+msgid "GIMP cscm-lx"
+msgstr ""
+
+#: tform1.menuitem1.caption
+msgid "File"
+msgstr ""
+
+#: tform1.menuitem10.caption
+msgid "Green Channel"
+msgstr ""
+
+#: tform1.menuitem11.caption
+msgid "Blue Channel"
+msgstr ""
+
+#: tform1.menuitem12.caption
+msgid "Gray Scale"
+msgstr ""
+
+#: tform1.menuitem13.caption
+msgid "Negative"
+msgstr ""
+
+#: tform1.menuitem14.caption
+msgid "Box Blur"
+msgstr ""
+
+#: tform1.menuitem2.caption
+msgid "Open"
+msgstr ""
+
+#: tform1.menuitem3.caption
+msgid "Save As BMP"
+msgstr ""
+
+#: tform1.menuitem4.caption
+msgid "Exit"
+msgstr ""
+
+#: tform1.menuitem5.caption
+msgid "Effects"
+msgstr ""
+
+#: tform1.menuitem6.caption
+msgid "Brighter"
+msgstr ""
+
+#: tform1.menuitem7.caption
+msgid "Help"
+msgstr ""
+
+#: tform1.menuitem8.caption
+msgctxt "tform1.menuitem8.caption"
+msgid "About"
+msgstr ""
+
+#: tform1.menuitem9.caption
+msgid "Red Channel"
+msgstr ""
+
+#: tform2.caption
+msgctxt "TFORM2.CAPTION"
+msgid "About"
+msgstr ""
+
+#: tform2.label1.caption
+msgid "Version 1.0"
+msgstr ""
+
+#: tform2.label2.caption
+msgid "By: Hussein Giva and Pedro Ribeiro"
+msgstr ""
+
