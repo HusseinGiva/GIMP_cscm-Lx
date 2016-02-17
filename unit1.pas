@@ -1,18 +1,18 @@
-unit Unit1;
+Unit Unit1;
 
 {$mode objfpc}{$H+}
 
-interface
+Interface
 
-uses
+Uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, Unit2;
 
-type
+Type
 
   { TForm1 }
 
-  TForm1 = class(TForm)
+  TForm1 = Class(TForm)
     Button1: TButton;
     Image1: TImage;
     MainMenu1: TMainMenu;
@@ -32,68 +32,147 @@ type
     MenuItem9: TMenuItem;
     OpenDialog1: TOpenDialog;
     ProgressBar1: TProgressBar;
-    procedure Button1Click(Sender: TObject);
-    procedure MenuItem2Click(Sender: TObject);
-    procedure MenuItem4Click(Sender: TObject);
-    procedure MenuItem8Click(Sender: TObject);
-    procedure MenuItem9Click(Sender: TObject);
-  private
+    Procedure Button1Click(Sender: TObject);
+    Procedure MenuItem10Click(Sender: TObject);
+    Procedure MenuItem11Click(Sender: TObject);
+    Procedure MenuItem12Click(Sender: TObject);
+    Procedure MenuItem13Click(Sender: TObject);
+    Procedure MenuItem2Click(Sender: TObject);
+    Procedure MenuItem4Click(Sender: TObject);
+    Procedure MenuItem8Click(Sender: TObject);
+    Procedure MenuItem9Click(Sender: TObject);
+  Private
     { private declarations }
-  public
+  Public
     { public declarations }
-  end;
+  End;
 
-var
+Var
   Form1: TForm1;
   Filename: String;
   i, j: Integer;
-  Image_var: TBitmap;
+  image: String;
 
-implementation
+Implementation
 
 {$R *.lfm}
 
 { TForm1 }
 
-procedure TForm1.MenuItem4Click(Sender: TObject);
-begin
+Procedure TForm1.MenuItem4Click(Sender: TObject);
+Begin
   Application.Terminate;
-end;
+End;
 
-procedure TForm1.MenuItem8Click(Sender: TObject);
-begin
+Procedure TForm1.MenuItem8Click(Sender: TObject);
+Begin
   Form2.ShowModal;
-end;
+End;
 
-procedure TForm1.MenuItem9Click(Sender: TObject);
-var clr: TColor;
+Procedure TForm1.MenuItem9Click(Sender: TObject);
+Var
+  clr: TColor;
   r: Byte;
-begin
- For i:=0 to Form1.Image1.Picture.Width do
- Begin
-   For j:=0 to Form1.Image1.Picture.Height do
-   Begin
-    clr:=Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
-    r:=Red(clr);
-    Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j]:=RGBToColor(r,0,0);
-   end;
-   Application.ProcessMessages;
- end;
+Begin
+  For i := 0 To Form1.Image1.Picture.Width Do
+  Begin
+    For j := 0 To Form1.Image1.Picture.Height Do
+    Begin
+      clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
+      r := Red(clr);
+      Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, 0, 0);
+    End;
+    Application.ProcessMessages;
+  End;
+End;
 
-end;
+Procedure TForm1.MenuItem2Click(Sender: TObject);
+Var
+  Ext: String;
+Begin
+  If OpenDialog1.Execute Then
+  Begin
+    FileName := OpenDialog1.Filename; //Caminho completo para o ficheiro selecionado
+    Form1.Image1.Picture.LoadFromFile(FileName);
+    Ext := ExtractFileExt(FileName);
+    Form1.Image1.Picture.SaveToFile('image' + Ext);
+  End;
+End;
 
-procedure TForm1.MenuItem2Click(Sender: TObject);
-begin
-  if OpenDialog1.Execute then
-begin
-FileName := OpenDialog1.Filename; //Caminho completo para o ficheiro selecionado
-Form1.Image1.Picture.LoadFromFile(FileName);
-end;
-end;
+Procedure TForm1.Button1Click(Sender: TObject);
+Begin
+  Form1.Image1.Picture.Clear;
+  Form1.Image1.Picture.LoadFromFile(FileName);
+End;
 
-procedure TForm1.Button1Click(Sender: TObject);
-begin
- Form1.Image1.Picture.Clear;
-end;
+Procedure TForm1.MenuItem10Click(Sender: TObject);
+Var
+  clr: TColor;
+  g: Byte;
+Begin
+  For i := 0 To Form1.Image1.Picture.Width Do
+  Begin
+    For j := 0 To Form1.Image1.Picture.Height Do
+    Begin
+      clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
+      g := Green(clr);
+      Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(0, g, 0);
+    End;
+    Application.ProcessMessages;
+  End;
+End;
 
-end.
+Procedure TForm1.MenuItem11Click(Sender: TObject);
+Var
+  clr: TColor;
+  b: Byte;
+Begin
+  For i := 0 To Form1.Image1.Picture.Width Do
+  Begin
+    For j := 0 To Form1.Image1.Picture.Height Do
+    Begin
+      clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
+      b := Blue(clr);
+      Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(0, 0, b);
+    End;
+    Application.ProcessMessages;
+  End;
+End;
+
+Procedure TForm1.MenuItem12Click(Sender: TObject);
+Var
+  clr: TColor;
+  y: Byte;
+Begin
+  For i := 0 To Form1.Image1.Picture.Width Do
+  Begin
+    For j := 0 To Form1.Image1.Picture.Height Do
+    Begin
+      clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
+      y := Round((Red(clr)) * 0.2126 + (Green(clr)) * 0.7152 + (Blue(clr)) * 0.0722);
+      Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(y, y, y);
+    End;
+    Application.ProcessMessages;
+  End;
+End;
+
+Procedure TForm1.MenuItem13Click(Sender: TObject);
+Var
+  clr: TColor;
+  r, g, b: Byte;
+Begin
+  For i := 0 To Form1.Image1.Picture.Width Do
+  Begin
+    For j := 0 To Form1.Image1.Picture.Height Do
+    Begin
+      clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
+      r := 255 - (Red(clr));
+      g := 255 - (Green(clr));
+      b := 255 - (Blue(clr));
+      Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, g, b);
+    End;
+    Application.ProcessMessages;
+  End;
+End;
+
+End.
