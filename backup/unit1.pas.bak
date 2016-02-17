@@ -33,6 +33,7 @@ Type
     OpenDialog1: TOpenDialog;
     ProgressBar1: TProgressBar;
     Procedure Button1Click(Sender: TObject);
+    Procedure FormCreate(Sender: TObject);
     Procedure MenuItem10Click(Sender: TObject);
     Procedure MenuItem11Click(Sender: TObject);
     Procedure MenuItem12Click(Sender: TObject);
@@ -49,9 +50,8 @@ Type
 
 Var
   Form1: TForm1;
-  Filename: String;
+  Filename, image, temp: String;
   i, j: Integer;
-  image: String;
 
 Implementation
 
@@ -87,14 +87,15 @@ Begin
 End;
 
 Procedure TForm1.MenuItem2Click(Sender: TObject);
-Var Ext: String;
+Var
+  Ext: String;
 Begin
   If OpenDialog1.Execute Then
   Begin
     FileName := OpenDialog1.Filename; //Caminho completo para o ficheiro selecionado
     Form1.Image1.Picture.LoadFromFile(FileName);
     Ext := ExtractFileExt(FileName);
-    Form1.Image1.Picture.SaveToFile('image'+Ext);
+    Form1.Image1.Picture.SaveToFile('temp/image' + Ext);
   End;
 End;
 
@@ -102,6 +103,12 @@ Procedure TForm1.Button1Click(Sender: TObject);
 Begin
   Form1.Image1.Picture.Clear;
   Form1.Image1.Picture.LoadFromFile(FileName);
+  ProgressBar1.Position := 0;
+End;
+
+Procedure TForm1.FormCreate(Sender: TObject);
+Begin
+  DeleteDirectory('temp', True);
 End;
 
 Procedure TForm1.MenuItem10Click(Sender: TObject);
@@ -150,6 +157,7 @@ Begin
       clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
       y := Round((Red(clr)) * 0.2126 + (Green(clr)) * 0.7152 + (Blue(clr)) * 0.0722);
       Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(y, y, y);
+      ProgressBar1.Position := 0.1;
     End;
     Application.ProcessMessages;
   End;
