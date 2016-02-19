@@ -77,6 +77,7 @@ End;
 
 Procedure TForm1.MenuItem4Click(Sender: TObject);   //File-Close
 Begin
+  DeleteDirectory('temp', True);
   Application.Terminate;
 End;
 
@@ -174,6 +175,7 @@ Var
   clr: TColor;
   y: Byte;
 Begin
+  ProgressBar1.Max:=326400;
   For i := 0 To Form1.Image1.Picture.Width Do
   Begin
     For j := 0 To Form1.Image1.Picture.Height Do
