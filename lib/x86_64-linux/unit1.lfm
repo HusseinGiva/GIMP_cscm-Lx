@@ -1,12 +1,15 @@
 object Form1: TForm1
-  Left = 1115
+  Left = 169
   Height = 579
-  Top = 189
+  Top = 116
   Width = 767
+  Align = alRight
   Caption = 'GIMP cscm-lx'
   ClientHeight = 556
   ClientWidth = 767
   Menu = MainMenu1
+  OnClose = FormClose
+  OnCreate = FormCreate
   LCLVersion = '1.2.6.0'
   object Button1: TButton
     Left = 578
@@ -41,6 +44,7 @@ object Form1: TForm1
       end
       object MenuItem3: TMenuItem
         Caption = 'Save As BMP'
+        OnClick = MenuItem3Click
       end
       object MenuItem4: TMenuItem
         Caption = 'Exit'
@@ -51,6 +55,7 @@ object Form1: TForm1
       Caption = 'Effects'
       object MenuItem6: TMenuItem
         Caption = 'Brighter'
+        OnClick = MenuItem6Click
       end
       object MenuItem9: TMenuItem
         Caption = 'Red Channel'
@@ -74,6 +79,7 @@ object Form1: TForm1
       end
       object MenuItem14: TMenuItem
         Caption = 'Box Blur'
+        OnClick = MenuItem14Click
       end
     end
     object MenuItem7: TMenuItem
@@ -87,5 +93,11 @@ object Form1: TForm1
   object OpenDialog1: TOpenDialog
     left = 720
     top = 96
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = '.bmp'
+    FileName = 'image'
+    left = 720
+    top = 186
   end
 end

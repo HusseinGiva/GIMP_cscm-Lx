@@ -32,6 +32,7 @@ Type
     MenuItem9: TMenuItem;
     OpenDialog1: TOpenDialog;
     ProgressBar1: TProgressBar;
+    SaveDialog1: TSaveDialog;
     Procedure Button1Click(Sender: TObject);
     Procedure FormClose(Sender: TObject; Var CloseAction: TCloseAction);
     Procedure FormCreate(Sender: TObject);
@@ -41,6 +42,7 @@ Type
     Procedure MenuItem13Click(Sender: TObject);
     Procedure MenuItem14Click(Sender: TObject);
     Procedure MenuItem2Click(Sender: TObject);
+    Procedure MenuItem3Click(Sender: TObject);
     Procedure MenuItem4Click(Sender: TObject);
     Procedure MenuItem6Click(Sender: TObject);
     Procedure MenuItem8Click(Sender: TObject);
@@ -71,7 +73,84 @@ Begin
     FileName := OpenDialog1.Filename; //Caminho completo para o ficheiro selecionado
     Form1.Image1.Picture.LoadFromFile(FileName);
     Ext := ExtractFileExt(FileName);
+    Image := 'temp/image' + Ext;
     Form1.Image1.Picture.SaveToFile('temp/image' + Ext);
+    ProgressBar1.Max := (Form1.Image1.Picture.Width * Form1.Image1.Picture.Height);
+    ProgressBar1.Position := 0;
+  End;
+End;
+
+Procedure TForm1.MenuItem3Click(Sender: TObject);   //File-Save As BMP
+Var
+  f: File;
+  bfType: Char;
+  BfSize, bfOffBits, biSize, biWidth, biHeight, biCompression, biSizeImage,
+  biXPelsPerMeter, biYPelsPerMeter, biClrUsed, biClrImportant, counter, a: Integer;
+  bfReserved1, bfReserved2, biPlanes, biBitCount: Word;
+  clr: TColor;
+  r, g, b, biZeros: Byte;
+Begin
+  If SaveDialog1.Execute Then
+  Begin
+    assignFile(f, SaveDialog1.FileName);
+    rewrite(f, 1);
+    bfType := 'B';
+    blockwrite(f, bfType, sizeof(bfType));
+    bfType := 'M';
+    blockwrite(f, bfType, sizeof(bfType));
+    BfSize := (Form1.Image1.Picture.Width * Form1.Image1.Picture.Height * 3);
+    blockwrite(f, BfSize, sizeof(BfSize));
+    bfReserved1 := 0;
+    blockwrite(f, bfReserved1, sizeof(bfReserved1));
+    bfReserved2 := 0;
+    blockwrite(f, bfReserved2, sizeof(bfReserved2));
+    bfOffBits := 54;
+    blockwrite(f, bfOffBits, sizeof(bfOffBits));
+    biSize := 40;
+    blockwrite(f, biSize, sizeof(biSize));
+    biWidth := Form1.Image1.Picture.Width;
+    blockwrite(f, biWidth, sizeof(biWidth));
+    biHeight := Form1.Image1.Picture.Height;
+    blockwrite(f, biHeight, sizeof(biHeight));
+    biPlanes := 1;
+    blockwrite(f, biPlanes, sizeof(biPlanes));
+    biBitCount := 24;
+    blockwrite(f, biBitCount, sizeof(biBitCount));
+    biCompression := 0;
+    blockwrite(f, biCompression, sizeof(biCompression));
+    biSizeImage := 0;
+    blockwrite(f, biSizeImage, sizeof(biSizeImage));
+    biXPelsPerMeter := 0;
+    blockwrite(f, biXPelsPerMeter, sizeof(biXPelsPerMeter));
+    biYPelsPerMeter := 0;
+    blockwrite(f, biYPelsPerMeter, sizeof(biYPelsPerMeter));
+    biClrUsed := 0;
+    blockwrite(f, biClrUsed, sizeof(biClrUsed));
+    biClrImportant := 0;
+    blockwrite(f, biClrImportant, sizeof(biClrImportant));
+    For j := Form1.Image1.Picture.Height Downto 0 Do
+    Begin
+      For i := 0 To Form1.Image1.Picture.Width Do
+      Begin
+        clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
+        b := Blue(clr);
+        blockwrite(f, b, sizeof(b));
+        g := Green(clr);
+        blockwrite(f, g, sizeof(g));
+        r := Red(clr);
+        blockwrite(f, r, sizeof(r));
+      End;
+      a := Form1.Image1.Picture.Width;
+      If ((Form1.Image1.Picture.Width * 3) Mod 4) <> 0 Then
+      Begin
+        biZeros := 0;
+        For counter := 1 To 4 - ((Form1.Image1.Picture.Width * 3) Mod 4) Do
+        Begin
+          blockwrite(f, biZeros, sizeof(biZeros));
+        End;
+      End;
+    End;
+    closefile(f);
   End;
 End;
 
@@ -92,6 +171,7 @@ Var
   clr: TColor;
   r, g, b: Byte;
 Begin
+  ProgressBar1.Position := 0;
   Form3.TrackBar1.Position := 0;
   Form3.ShowModal(); //Mostra o form3
   position_track := Round((Form3.TrackBar1.Position) / 10);
@@ -114,6 +194,7 @@ Begin
       Else
         b := Blue(clr) + (Blue(clr) * position_track);
       Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, g, b);
+      ProgressBar1.Position := ProgressBar1.Position + 1;
     End;
     Application.ProcessMessages;
   End;
@@ -124,6 +205,7 @@ Var
   clr: TColor;
   r: Byte;
 Begin
+  ProgressBar1.Position := 0;
   For i := 0 To Form1.Image1.Picture.Width Do
   Begin
     For j := 0 To Form1.Image1.Picture.Height Do
@@ -131,6 +213,7 @@ Begin
       clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
       r := Red(clr);
       Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, 0, 0);
+      ProgressBar1.Position := ProgressBar1.Position + 1;
     End;
     Application.ProcessMessages;
   End;
@@ -141,6 +224,7 @@ Var
   clr: TColor;
   g: Byte;
 Begin
+  ProgressBar1.Position := 0;
   For i := 0 To Form1.Image1.Picture.Width Do
   Begin
     For j := 0 To Form1.Image1.Picture.Height Do
@@ -148,6 +232,7 @@ Begin
       clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
       g := Green(clr);
       Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(0, g, 0);
+      ProgressBar1.Position := ProgressBar1.Position + 1;
     End;
     Application.ProcessMessages;
   End;
@@ -158,6 +243,7 @@ Var
   clr: TColor;
   b: Byte;
 Begin
+  ProgressBar1.Position := 0;
   For i := 0 To Form1.Image1.Picture.Width Do
   Begin
     For j := 0 To Form1.Image1.Picture.Height Do
@@ -165,6 +251,7 @@ Begin
       clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
       b := Blue(clr);
       Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(0, 0, b);
+      ProgressBar1.Position := ProgressBar1.Position + 1;
     End;
     Application.ProcessMessages;
   End;
@@ -175,7 +262,7 @@ Var
   clr: TColor;
   y: Byte;
 Begin
-  ProgressBar1.Max:=(Form1.Image1.Picture.Width*Form1.Image1.Picture.Height);
+  ProgressBar1.Position := 0;
   For i := 0 To Form1.Image1.Picture.Width Do
   Begin
     For j := 0 To Form1.Image1.Picture.Height Do
@@ -194,6 +281,7 @@ Var
   clr: TColor;
   r, g, b: Byte;
 Begin
+  ProgressBar1.Position := 0;
   For i := 0 To Form1.Image1.Picture.Width Do
   Begin
     For j := 0 To Form1.Image1.Picture.Height Do
@@ -203,6 +291,7 @@ Begin
       g := 255 - (Green(clr));
       b := 255 - (Blue(clr));
       Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, g, b);
+      ProgressBar1.Position := ProgressBar1.Position + 1;
     End;
     Application.ProcessMessages;
   End;
@@ -213,14 +302,15 @@ Var
   r, g, b: Byte;
   m, n, red_a, green_a, blue_a, counter: Integer;
 Begin
-  red_a := 0;
-  green_a := 0;
-  blue_a := 0;
-  counter := 0;
+  ProgressBar1.Position := 0;
   For i := 0 To Form1.Image1.Picture.Width Do
   Begin
     For j := 0 To Form1.Image1.Picture.Height Do
     Begin
+      red_a := 0;
+      green_a := 0;
+      blue_a := 0;
+      counter := 0;
       For m := -1 To 1 Do
       Begin
         For n := -1 To 1 Do
@@ -243,6 +333,7 @@ Begin
       b := Round(blue_a / counter);
       Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, g, b);
       counter := 0;
+      ProgressBar1.Position := ProgressBar1.Position + 1;
     End;
     Application.ProcessMessages;
   End;
@@ -251,7 +342,7 @@ End;
 Procedure TForm1.Button1Click(Sender: TObject);     //Reset Button
 Begin
   Form1.Image1.Picture.Clear;
-  Form1.Image1.Picture.LoadFromFile(FileName);
+  Form1.Image1.Picture.LoadFromFile(Image);
   ProgressBar1.Position := 0;
 End;
 
