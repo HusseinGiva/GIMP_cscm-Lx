@@ -5,7 +5,7 @@ object Form1: TForm1
   Width = 767
   Align = alRight
   Caption = 'GIMP cscm-lx'
-  ClientHeight = 540
+  ClientHeight = 559
   ClientWidth = 767
   Menu = MainMenu1
   OnClose = FormClose
@@ -44,6 +44,7 @@ object Form1: TForm1
       end
       object MenuItem3: TMenuItem
         Caption = 'Save As BMP'
+        OnClick = MenuItem3Click
       end
       object MenuItem4: TMenuItem
         Caption = 'Exit'
@@ -92,5 +93,11 @@ object Form1: TForm1
   object OpenDialog1: TOpenDialog
     left = 720
     top = 96
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = '.bmp'
+    FileName = 'image'
+    left = 720
+    top = 186
   end
 end

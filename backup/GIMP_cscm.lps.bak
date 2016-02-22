@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="8">
+    <Units Count="7">
       <Unit0>
         <Filename Value="GIMP_cscm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -17,10 +17,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="126"/>
-        <CursorPos X="61" Y="147"/>
+        <TopLine Value="138"/>
+        <CursorPos X="33" Y="147"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -34,7 +33,6 @@
         <UnitName Value="Unit2"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="1"/>
         <CursorPos X="40" Y="11"/>
         <UsageCount Value="36"/>
         <Loaded Value="True"/>
@@ -58,35 +56,25 @@
       <Unit4>
         <Filename Value="../../lazarus/components/lazutils/lazutf8classes.pas"/>
         <UnitName Value="LazUTF8Classes"/>
-        <TopLine Value="129"/>
+        <TopLine Value="123"/>
         <CursorPos Y="137"/>
         <UsageCount Value="9"/>
       </Unit4>
       <Unit5>
-        <Filename Value="../../../../lazarus/components/lazutils/lazutf8classes.pas"/>
-        <UnitName Value="LazUTF8Classes"/>
-        <TopLine Value="123"/>
-        <CursorPos Y="137"/>
-        <UsageCount Value="9"/>
-      </Unit5>
-      <Unit6>
         <Filename Value="/usr/share/lazarus/1.2.6/lcl/include/picture.inc"/>
         <WindowIndex Value="1"/>
         <TopLine Value="790"/>
-        <CursorPos X="1" Y="814"/>
+        <CursorPos Y="814"/>
         <UsageCount Value="10"/>
-      </Unit6>
-      <Unit7>
+      </Unit5>
+      <Unit6>
         <Filename Value="/usr/share/fpcsrc/2.6.4/rtl/inc/systemh.inc"/>
         <WindowIndex Value="1"/>
         <TopLine Value="900"/>
         <CursorPos X="11" Y="917"/>
         <UsageCount Value="10"/>
-      </Unit7>
+      </Unit6>
     </Units>
-    <General>
-      <ActiveWindowIndexAtStart Value="0"/>
-    </General>
     <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="unit1.pas"/>
@@ -181,5 +169,4 @@
       </Item1>
     </BreakPoints>
   </Debugging>
-  <EditorMacros Count="0"/>
 </CONFIG>
