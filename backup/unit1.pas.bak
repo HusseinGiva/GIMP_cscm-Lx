@@ -6,7 +6,7 @@ Interface
 
 Uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  StdCtrls, ExtCtrls, ComCtrls, Unit2, Unit3;
+  StdCtrls, ExtCtrls, ComCtrls, Unit2, Unit3, DefaultTranslator;
 
 Type
 
@@ -83,20 +83,19 @@ End;
 Procedure TForm1.MenuItem3Click(Sender: TObject);   //File-Save As BMP
 Var
   f: File;
-  bfType: Char;
   BfSize, bfOffBits, biSize, biWidth, biHeight, biCompression, biSizeImage,
-  biXPelsPerMeter, biYPelsPerMeter, biClrUsed, biClrImportant, counter, a: Integer;
+  biXPelsPerMeter, biYPelsPerMeter, biClrUsed, biClrImportant, counter: Integer;
   bfReserved1, bfReserved2, biPlanes, biBitCount: Word;
   clr: TColor;
-  r, g, b, biZeros: Byte;
+  bfType, r, g, b, biZeros: Byte;
 Begin
   If SaveDialog1.Execute Then
   Begin
     assignFile(f, SaveDialog1.FileName);
     rewrite(f, 1);
-    bfType := 'B';
+    bfType := Ord('B');
     blockwrite(f, bfType, sizeof(bfType));
-    bfType := 'M';
+    bfType := Ord('M');
     blockwrite(f, bfType, sizeof(bfType));
     BfSize := (Form1.Image1.Picture.Width * Form1.Image1.Picture.Height * 3);
     blockwrite(f, BfSize, sizeof(BfSize));
@@ -128,9 +127,9 @@ Begin
     blockwrite(f, biClrUsed, sizeof(biClrUsed));
     biClrImportant := 0;
     blockwrite(f, biClrImportant, sizeof(biClrImportant));
-    For j := Form1.Image1.Picture.Height Downto 0 Do
+    For j := Form1.Image1.Picture.Height - 1 Downto 0 Do
     Begin
-      For i := 0 To Form1.Image1.Picture.Width Do
+      For i := 0 To Form1.Image1.Picture.Width - 1 Do
       Begin
         clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
         b := Blue(clr);
@@ -140,8 +139,7 @@ Begin
         r := Red(clr);
         blockwrite(f, r, sizeof(r));
       End;
-      a := Form1.Image1.Picture.Width;
-      If 4-((Form1.Image1.Picture.Width * 3) Mod 4) <> 0 Then
+      If ((Form1.Image1.Picture.Width * 3) Mod 4) <> 0 Then
       Begin
         biZeros := 0;
         For counter := 1 To 4 - ((Form1.Image1.Picture.Width * 3) Mod 4) Do

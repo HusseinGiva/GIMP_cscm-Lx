@@ -1,12 +1,12 @@
 object Form1: TForm1
-  Left = 169
+  Left = 491
   Height = 579
-  Top = 116
-  Width = 767
+  Top = 234
+  Width = 699
   Align = alRight
   Caption = 'GIMP cscm-lx'
   ClientHeight = 556
-  ClientWidth = 767
+  ClientWidth = 699
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate

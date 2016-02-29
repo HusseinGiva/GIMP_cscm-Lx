@@ -1,0 +1,97 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: tform1.button1.caption
+msgid "Reset"
+msgstr "Restabelecer"
+
+#: tform1.caption
+msgid "GIMP cscm-lx"
+msgstr "GIMP cscm-lx"
+
+#: tform1.menuitem1.caption
+msgid "File"
+msgstr "Ficheiro"
+
+#: tform1.menuitem10.caption
+msgid "Green Channel"
+msgstr "Filtro Verde"
+
+#: tform1.menuitem11.caption
+msgid "Blue Channel"
+msgstr "Filtro Azul"
+
+#: tform1.menuitem12.caption
+msgid "Gray Scale"
+msgstr "Tons de Cinza"
+
+#: tform1.menuitem13.caption
+msgid "Negative"
+msgstr "Negativo"
+
+#: tform1.menuitem14.caption
+msgid "Box Blur"
+msgstr "Desfazamento em Caixa"
+
+#: tform1.menuitem2.caption
+msgid "Open"
+msgstr "Abrir"
+
+#: tform1.menuitem3.caption
+msgid "Save As BMP"
+msgstr "Salvar como BMP"
+
+#: tform1.menuitem4.caption
+msgid "Exit"
+msgstr "Sair"
+
+#: tform1.menuitem5.caption
+msgid "Effects"
+msgstr "Efeitos"
+
+#: tform1.menuitem6.caption
+msgid "Brighter"
+msgstr "Mais Brilho"
+
+#: tform1.menuitem7.caption
+msgid "Help"
+msgstr "Ajuda"
+
+#: tform1.menuitem8.caption
+msgctxt "tform1.menuitem8.caption"
+msgid "About"
+msgstr "Acerca De"
+
+#: tform1.menuitem9.caption
+msgid "Red Channel"
+msgstr "Filtro Vermelho"
+
+#: tform2.caption
+msgctxt "TFORM2.CAPTION"
+msgid "About"
+msgstr "Acerca De"
+
+#: tform2.label1.caption
+msgid "Version 1.0"
+msgstr "Versão 1.0"
+
+#: tform2.label2.caption
+msgid "By: Hussein Giva and Pedro Ribeiro"
+msgstr "Por Hussein Giva e Pedro RIbeiro"
+
+#: tform3.button1.caption
+msgid "OK"
+msgstr "OK"
+
+#: tform3.caption
+msgid "Form3"
+msgstr "Form3"
