@@ -1,33 +1,33 @@
-unit Unit2;
+Unit Unit2;
 
 {$mode objfpc}{$H+}
 
-interface
+Interface
 
-uses
+Uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls;
 
-type
+Type
 
   { TForm2 }
 
-  TForm2 = class(TForm)
+  TForm2 = Class(TForm)
     Image1: TImage;
     Label1: TLabel;
     Label2: TLabel;
-  private
+  Private
     { private declarations }
-  public
+  Public
     { public declarations }
-  end;
+  End;
 
-var
+Var
   Form2: TForm2;
 
-implementation
+Implementation
 
 {$R *.lfm}
 
-end.
+End.
 

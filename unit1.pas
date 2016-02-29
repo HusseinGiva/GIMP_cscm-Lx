@@ -174,27 +174,31 @@ Begin
   Form3.ShowModal(); //Mostra o form3
   position_track := Round((Form3.TrackBar1.Position) / 10);
   //obter a posição da trackbar
-  For i := 0 To Form1.Image1.Picture.Width Do
+  If Form3.TrackBar1.Position = 0 Then
+  Else
   Begin
-    For j := 0 To Form1.Image1.Picture.Height Do
+    For i := 0 To Form1.Image1.Picture.Width Do
     Begin
-      clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
-      If (Red(clr) + (Red(clr) * position_track)) >= 255 Then
-        r := 255
-      Else
-        r := Red(clr) + (Red(clr) * position_track);
-      If (Green(clr) + (Green(clr) * position_track)) >= 255 Then
-        g := 255
-      Else
-        g := Green(clr) + (Green(clr) * position_track);
-      If (Blue(clr) + (Blue(clr) * position_track)) >= 255 Then
-        b := 255
-      Else
-        b := Blue(clr) + (Blue(clr) * position_track);
-      Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, g, b);
-      ProgressBar1.Position := ProgressBar1.Position + 1;
+      For j := 0 To Form1.Image1.Picture.Height Do
+      Begin
+        clr := Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j];
+        If (Red(clr) + (Red(clr) * position_track)) >= 255 Then
+          r := 255
+        Else
+          r := Red(clr) + (Red(clr) * position_track);
+        If (Green(clr) + (Green(clr) * position_track)) >= 255 Then
+          g := 255
+        Else
+          g := Green(clr) + (Green(clr) * position_track);
+        If (Blue(clr) + (Blue(clr) * position_track)) >= 255 Then
+          b := 255
+        Else
+          b := Blue(clr) + (Blue(clr) * position_track);
+        Form1.Image1.Picture.Bitmap.Canvas.Pixels[i, j] := RGBToColor(r, g, b);
+        ProgressBar1.Position := ProgressBar1.Position + 1;
+      End;
+      Application.ProcessMessages;
     End;
-    Application.ProcessMessages;
   End;
 End;
 

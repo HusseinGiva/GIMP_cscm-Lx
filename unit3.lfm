@@ -6,6 +6,9 @@ object Form3: TForm3
   Caption = 'Form3'
   ClientHeight = 240
   ClientWidth = 320
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
   LCLVersion = '1.2.6.0'
   object TrackBar1: TTrackBar
     Left = 24

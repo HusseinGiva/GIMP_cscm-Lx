@@ -1,40 +1,68 @@
-unit Unit3;
+Unit Unit3;
 
 {$mode objfpc}{$H+}
 
-interface
+Interface
 
-uses
+Uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   StdCtrls;
 
-type
+Type
 
   { TForm3 }
 
-  TForm3 = class(TForm)
+  TForm3 = Class(TForm)
     Button1: TButton;
     TrackBar1: TTrackBar;
-    procedure Button1Click(Sender: TObject);
-  private
+    Procedure Button1Click(Sender: TObject);
+    Procedure FormClose(Sender: TObject; Var CloseAction: TCloseAction);
+    Procedure FormCreate(Sender: TObject);
+    Procedure FormShow(Sender: TObject);
+  Private
     { private declarations }
-  public
+  Public
     { public declarations }
-  end;
+  End;
 
-var
+Var
   Form3: TForm3;
+  counter: Integer;
 
-implementation
+Implementation
 
 {$R *.lfm}
 
 { TForm3 }
 
-procedure TForm3.Button1Click(Sender: TObject);
-begin
+Procedure TForm3.Button1Click(Sender: TObject);
+Begin
+  TrackBar1.Position := TrackBar1.Position;
   Form3.Close;
-end;
+  counter := counter + 1;
+End;
 
-end.
+Procedure TForm3.FormClose(Sender: TObject; Var CloseAction: TCloseAction);
+Begin
+  If counter = 0 Then
+  Begin
+    TrackBar1.Position := 0;
+    Form3.Close;
+  End
+  Else
+    Form3.Close;
+End;
+
+Procedure TForm3.FormCreate(Sender: TObject);
+Begin
+  TrackBar1.Position := 0;
+  counter := 0;
+End;
+
+Procedure TForm3.FormShow(Sender: TObject);
+Begin
+  counter := 0;
+End;
+
+End.
 
