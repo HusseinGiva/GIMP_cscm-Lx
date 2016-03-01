@@ -343,9 +343,13 @@ End;
 
 Procedure TForm1.Button1Click(Sender: TObject);     //Reset Button
 Begin
-  Form1.Image1.Picture.Clear;
-  Form1.Image1.Picture.LoadFromFile(Image);
-  ProgressBar1.Position := 0;
+  If Image1.Picture.Bitmap.Empty Then
+  Else
+  Begin
+    Form1.Image1.Picture.Clear;
+    Form1.Image1.Picture.LoadFromFile(Image);
+    ProgressBar1.Position := 0;
+  End;
 End;
 
 Procedure TForm1.FormClose(Sender: TObject; Var CloseAction: TCloseAction);  //On Close

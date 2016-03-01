@@ -174,7 +174,7 @@ Begin
   Form3.ShowModal(); //Mostra o form3
   position_track := Round((Form3.TrackBar1.Position) / 10);
   //obter a posição da trackbar
-  If position_track = 0 Then
+  If Form3.TrackBar1.Position = 0 Then
   Else
   Begin
     For i := 0 To Form1.Image1.Picture.Width Do
