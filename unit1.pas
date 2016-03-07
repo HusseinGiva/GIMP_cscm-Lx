@@ -58,6 +58,9 @@ Var
   Filename, image, temp: String;
   i, j: Integer;
 
+Resourcestring
+  saveMessage = 'File saving is completed';
+
 Implementation
 
 {$R *.lfm}
@@ -142,6 +145,7 @@ Begin
           r := Red(clr);
           blockwrite(f, r, sizeof(r));
         End;
+        Application.ProcessMessages;
         If ((Form1.Image1.Picture.Width * 3) Mod 4) <> 0 Then
         Begin
           biZeros := 0;
@@ -150,9 +154,11 @@ Begin
             blockwrite(f, biZeros, sizeof(biZeros));
           End;
         End;
+        Application.ProcessMessages;
       End;
       closefile(f);
     End;
+    ShowMessage(saveMessage);
   End;
 End;
 

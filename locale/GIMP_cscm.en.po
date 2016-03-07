@@ -96,3 +96,6 @@ msgstr "OK"
 msgid "Form3"
 msgstr "Form3"
 
+#: unit1.savemessage
+msgid "File saving is completed"
+msgstr "File saving is completed."

@@ -95,3 +95,7 @@ msgstr "OK"
 #: tform3.caption
 msgid "Form3"
 msgstr "Form3"
+
+#: unit1.savemessage
+msgid "File saving is completed"
+msgstr "A gravação do ficheiro foi concluída."
