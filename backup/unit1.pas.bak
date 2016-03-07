@@ -80,6 +80,7 @@ Begin
     Form1.Image1.Picture.SaveToFile('temp/image' + Ext);
     ProgressBar1.Max := (Form1.Image1.Picture.Width * Form1.Image1.Picture.Height);
     ProgressBar1.Position := 0;
+    ProgressBar1.BarShowText := True;
   End;
 End;
 
@@ -145,6 +146,7 @@ Begin
           r := Red(clr);
           blockwrite(f, r, sizeof(r));
         End;
+        Application.ProcessMessages;
         If ((Form1.Image1.Picture.Width * 3) Mod 4) <> 0 Then
         Begin
           biZeros := 0;
@@ -153,6 +155,7 @@ Begin
             blockwrite(f, biZeros, sizeof(biZeros));
           End;
         End;
+        Application.ProcessMessages;
       End;
       closefile(f);
     End;

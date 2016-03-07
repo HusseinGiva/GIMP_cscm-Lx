@@ -1,68 +1,68 @@
-unit Unit3;
+Unit Unit3;
 
 {$mode objfpc}{$H+}
 
-interface
+Interface
 
-uses
+Uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   StdCtrls;
 
-type
+Type
 
   { TForm3 }
 
-  TForm3 = class(TForm)
+  TForm3 = Class(TForm)
     Button1: TButton;
     TrackBar1: TTrackBar;
-    procedure Button1Click(Sender: TObject);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
-  private
+    Procedure Button1Click(Sender: TObject);
+    Procedure FormClose(Sender: TObject; Var CloseAction: TCloseAction);
+    Procedure FormCreate(Sender: TObject);
+    Procedure FormShow(Sender: TObject);
+  Private
     { private declarations }
-  public
+  Public
     { public declarations }
-  end;
+  End;
 
-var
+Var
   Form3: TForm3;
   counter: Integer;
 
-implementation
+Implementation
 
 {$R *.lfm}
 
 { TForm3 }
 
-procedure TForm3.Button1Click(Sender: TObject);
-begin
-  TrackBar1.Position:=TrackBar1.Position;
+Procedure TForm3.Button1Click(Sender: TObject); //When "Ok" is pressed
+Begin
+  //TrackBar1.Position := TrackBar1.Position;
   Form3.Close;
-  counter:=counter+1;
-end;
+  counter := counter + 1;
+End;
 
-procedure TForm3.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  If counter=0 then
+Procedure TForm3.FormClose(Sender: TObject; Var CloseAction: TCloseAction); //When form is closed without using the "Ok"
+Begin
+  If counter = 0 Then
   Begin
-  TrackBar1.Position:=0;
-  Form3.Close;
-  end
+    TrackBar1.Position := 0;
+    Form3.Close;
+  End
   Else
- Form3.Close;
-end;
+    Form3.Close;
+End;
 
-procedure TForm3.FormCreate(Sender: TObject);
-begin
-  TrackBar1.Position:=0;
-  counter:=0;
-end;
+Procedure TForm3.FormCreate(Sender: TObject); //On form create
+Begin
+  TrackBar1.Position := 0;
+  counter := 0;
+End;
 
-procedure TForm3.FormShow(Sender: TObject);
-begin
-  counter:=0;
-end;
+Procedure TForm3.FormShow(Sender: TObject);  //When form is called
+Begin
+  counter := 0;
+End;
 
-end.
+End.
 

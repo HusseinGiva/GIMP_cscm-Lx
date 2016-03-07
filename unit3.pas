@@ -35,14 +35,13 @@ Implementation
 
 { TForm3 }
 
-Procedure TForm3.Button1Click(Sender: TObject);
+Procedure TForm3.Button1Click(Sender: TObject); //When "Ok" is pressed
 Begin
-  TrackBar1.Position := TrackBar1.Position;
   Form3.Close;
   counter := counter + 1;
 End;
 
-Procedure TForm3.FormClose(Sender: TObject; Var CloseAction: TCloseAction);
+Procedure TForm3.FormClose(Sender: TObject; Var CloseAction: TCloseAction); //When form is closed without using the "Ok"
 Begin
   If counter = 0 Then
   Begin
@@ -53,16 +52,15 @@ Begin
     Form3.Close;
 End;
 
-Procedure TForm3.FormCreate(Sender: TObject);
+Procedure TForm3.FormCreate(Sender: TObject);  //On form create
 Begin
   TrackBar1.Position := 0;
   counter := 0;
 End;
 
-Procedure TForm3.FormShow(Sender: TObject);
+Procedure TForm3.FormShow(Sender: TObject);    //When form is called
 Begin
   counter := 0;
 End;
 
 End.
-

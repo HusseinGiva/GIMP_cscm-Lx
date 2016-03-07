@@ -80,6 +80,7 @@ Begin
     Form1.Image1.Picture.SaveToFile('temp/image' + Ext);
     ProgressBar1.Max := (Form1.Image1.Picture.Width * Form1.Image1.Picture.Height);
     ProgressBar1.Position := 0;
+    ProgressBar1.BarShowText := True;
   End;
 End;
 
@@ -354,8 +355,8 @@ Begin
         Begin
           For n := -1 To 1 Do
           Begin
-            If (i + m >= 0) And (i + m <= Form1.Image1.Picture.Width) And
-              (j + n >= 0) And (j + n <= Form1.Image1.Picture.Height) Then
+            If (i + m >= 0) And (i + m < Form1.Image1.Picture.Width) And
+              (j + n >= 0) And (j + n < Form1.Image1.Picture.Height) Then
             Begin
               red_a := red_a +
                 Red(Form1.Image1.Picture.Bitmap.Canvas.Pixels[i + m, j + n]);
